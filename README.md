@@ -180,17 +180,33 @@ Install — fully upgrade-safe, no manual corrections required.
 ## 🏗 Project Structure
 
 ```
-/AGENTS.md                        # Execution rules and standards
+/AGENTS.md                              # Execution rules and standards
 /prompts/
-    feature_request_format.md     # Deterministic AI input schema
-    feature_generator.md          # Generation instructions
-/templates/minimal_mlp/           # Pack stub for AI reference
+    feature_request_format.md           # Deterministic AI input schema
+    feature_generator.md                # Generation instructions (CRITICAL - read first)
+    pack_php.md                         # Pack.php generation rules (CRITICAL - prevents pack.php mistakes)
+    external_resource_client.md         # ExternalResourceClient usage guide (CRITICAL - HTTP requests)
+    logic_hook.md                       # Logic hook generation
+    custom_field.md                     # Custom field generation
+    relationship.md                     # Relationship generation
+    rest_endpoint.md                    # REST endpoint generation
+    scheduler.md                        # Scheduler job generation
+    ui_customization.md                 # UI customization generation
+    compliance_review.md                # Compliance checking
+/templates/minimal_mlp/           
+    pack.stub.php                       # Reference pack.php template (see pack_php.md)
 /build/                            # Generated packages live here
 /output/                           # Optional staging of zips
 /reference/                        # Sugar Developer Guide (never included in output)
 /README.md
 /LICENSE
 ```
+
+**⚠️ CRITICAL PROMPTS (Read Before Generation):**
+1. `AGENTS.md` — Authoritative execution contract
+2. `prompts/feature_generator.md` — Generation rules
+3. `prompts/pack_php.md` — Pack.php generation (prevents static array mistakes)
+4. `prompts/external_resource_client.md` — HTTP requests (prevents getInstance() errors)
 
 ---
 
