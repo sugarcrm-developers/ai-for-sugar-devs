@@ -6,7 +6,206 @@ Designed for **Sugar developers**, it automates module generation while enforcin
 
 ---
 
-## 🚀 Features
+## 🚀 Quick Start for Humans
+
+**You're reading the right file!** This is the entry point for developers like you.
+
+### Step 1: Understand the Workflow
+Review the workflow diagram and examples below to understand the complete process.
+
+### Step 2: Pick Your Feature Type
+Choose your feature type from the examples and feature list below.
+
+### Step 3: Read Feature Specifications
+Choose your feature type from `/prompts/`:
+- **[prompts/logic_hook.md](prompts/logic_hook.md)** — Logic hooks
+- **[prompts/custom_field.md](prompts/custom_field.md)** — Simple custom fields
+- **[prompts/custom_field_type.md](prompts/custom_field_type.md)** — Complex field types
+- **[prompts/relationship.md](prompts/relationship.md)** — Relationships
+- **[prompts/rest_endpoint.md](prompts/rest_endpoint.md)** — REST endpoints
+- **[prompts/scheduler.md](prompts/scheduler.md)** — Scheduled jobs
+- **[prompts/ui_customization.md](prompts/ui_customization.md)** — UI customizations
+- **[prompts/pack_php.md](prompts/pack_php.md)** — Pack.php generation
+- **[prompts/external_resource_client.md](prompts/external_resource_client.md)** — HTTP requests
+- **[prompts/feature_request_format.md](prompts/feature_request_format.md)** — Request format
+
+### Step 4: Format Your Request
+Use the format from **[prompts/feature_request_format.md](prompts/feature_request_format.md)** and the examples below.
+
+### Step 5: Prompt the AI
+Give the AI agent your formatted feature request. It will generate a complete package.
+
+### Step 6: Test & Install
+```bash
+cd build/<PackageName>
+php pack.php 1.0.0
+# Install the zip via Module Loader in Sugar
+```
+
+---
+
+## 🔄 Complete Workflow
+
+### Visual Workflow Diagram
+
+```mermaid
+sequenceDiagram
+    participant Human as 👤 Developer (You)
+    participant Docs as 📚 Documentation
+    participant AI as 🤖 AI Agent
+    participant Build as 📦 Build Output
+    participant Sugar as 🍬 SugarCRM
+
+    Human->>Docs: 1. Read README.md
+    Docs-->>Human: Overview & Complete Workflow
+    
+    Human->>Docs: 2. Review Examples Below
+    Docs-->>Human: Feature Examples & Specifications
+    
+    Human->>Docs: 3. Read prompts/<feature_type>.md
+    Docs-->>Human: Complete Specifications
+    
+    Human->>AI: 4. Submit Feature Request
+    Note over AI: Reads AGENTS.md<br/>(Execution Contract)
+    
+    AI->>Docs: Consult prompts/<feature_type>.md
+    Docs-->>AI: Feature Specifications
+    
+    AI->>Docs: Consult reference/master_reference.md
+    Docs-->>AI: SugarCRM Extension Framework
+    
+    AI->>Build: 5. Generate Package
+    Note over Build: build/<PackageName>/<br/>src/, pack.php,<br/>version, releases/
+    
+    AI-->>Human: Output Raw File Entries
+    
+    Human->>Build: 6. Run: php pack.php 1.0.0
+    Build-->>Human: sugarcrm-<PackageName>-1.0.0.zip
+    
+    Human->>Sugar: 7. Install via Module Loader
+    Sugar-->>Human: ✅ Package Installed
+```
+
+### Step-by-Step Workflow
+
+1. You write feature request
+2. You read relevant prompt (or quick reference)
+3. You prompt AI with your request
+4. AI generates package in `build/<PackageName>/`
+5. You test with: `php build/<PackageName>/pack.php`
+6. You install zip in Sugar via Module Loader
+
+---
+
+## 📚 Real-World Examples
+
+### Example 1: Adding a Logic Hook
+
+**Your Request:**
+```
+Feature Type: Logic Hook
+Module: Accounts
+Trigger: after_save
+Condition:
+  field: account_type = 'Customer'
+Action:
+  type: webhook
+  method: POST
+  url: https://webhooks.com/webhook
+  payload: full bean
+Package Name: Acme_AccountsWebhook
+```
+
+**What to Do:**
+1. **Before prompting:** Read `prompts/logic_hook.md` to understand requirements
+2**Then:** Give the AI your feature request
+3**After:** AI generates `build/Acme_AccountsWebhook/` with all files
+4**Test:** `php build/Acme_AccountsWebhook/pack.php`
+
+**Key Specifications:**
+- ✅ Logic hooks use Extension Framework (best practice)
+- ✅ Hooks go in `custom/Extension/modules/<Module>/Ext/LogicHooks/`
+- ✅ Hook implementation uses namespaced classes
+- ✅ Webhook uses ExternalResourceClient (never curl)
+
+---
+
+### Example 2: Adding a Custom Field
+
+**Your Request:**
+```
+Feature Type: Custom Field
+Module: Accounts
+Field Name: customer_priority
+Field Type: varchar
+Label: Customer Priority
+Length: 255
+Package Name: Acme_AccountsPriority
+```
+
+**What to Do:**
+1. **Before prompting:** Read `prompts/custom_field.md`
+2. **Check:** Is it a simple field (varchar, int, bool, date) or complex (dropdown, encrypted)?
+3. **Then:** Give the AI your feature request
+4. **After:** AI generates `build/Acme_AccountsPriority/` with all needed files
+5. **Test and install**
+
+**Key Specifications:**
+- ✅ Field name MUST end with `_c` (becomes `customer_priority_c`)
+- ✅ Vardef properties set individually (NOT array merge)
+- ✅ MUST include `source: 'custom_fields'`
+- ✅ For dropdown/enum/multiselect → Use ModuleInstaller
+
+---
+
+### Example 3: Adding a Custom Relationship
+
+**Your Request:**
+```
+Feature Type: Custom Relationship
+Relationship Name: accounts_projects
+Left Module: Accounts
+Right Module: Projects
+Type: many-to-many
+Package Name: Acme_AccountsProjects
+```
+
+**What to Do:**
+1. **Before prompting:** Read `prompts/relationship.md`
+2. **Understand:** one-to-many vs many-to-many differences
+3. **Then:** Give the AI your feature request
+4. **After:** AI generates metadata and TableDictionary files
+5. **Test and install**
+
+---
+
+### Example 4: Adding a REST Endpoint
+
+**Your Request:**
+```
+Feature Type: REST Endpoint
+Module: Contacts
+Endpoint: /custom/contacts/summary
+Method: GET
+Action: return summary of contact activity
+Package Name: Acme_ContactsSummaryAPI
+```
+
+---
+
+## 🔧 Key Points for All Features
+
+- ✅ **Review** the workflow diagram and examples above
+- ✅ **Choose** your feature type from the examples
+- ✅ **Read** `prompts/<feature_type>.md` for complete specifications
+- ✅ **Follow** the format from `prompts/feature_request_format.md`
+- ✅ **Prompt** the AI with your formatted request
+- ✅ **Test** with `php build/<PackageName>/pack.php`
+- ✅ **Install** via Module Loader in Sugar
+
+---
+
+## 📚 Features
 
 * Generate full MLPs: Logic Hooks, Custom Fields, Relationships, REST Endpoints, Scheduler Jobs, UI Customizations
 * **Extension Framework only** — no core overrides
@@ -17,19 +216,19 @@ Designed for **Sugar developers**, it automates module generation while enforcin
 
 ---
 
-## 🧠 Architecture Overview
+## 📁 Architecture Overview
 
-Each feature lives in an isolated directory:
+Each generated feature lives in an isolated directory:
 
 ```
 /build/<PackageName>/
     src/                      # All Sugar files (Extension Framework only)
-    pack.php                  # Self-contained build script
+    pack.php                  # Executable package builder
     version                   # Version file
     releases/                 # Generated zip output
 ```
 
-Running:
+Running the package builder:
 
 ```bash
 cd build/<PackageName>
@@ -42,25 +241,51 @@ Produces:
 build/<PackageName>/releases/sugarcrm-<PackageName>-1.0.0.zip
 ```
 
-Zip is ready for **Module Loader** installation.
+Ready for **Module Loader** installation in Sugar.
 
 ---
 
-## 🔐 Execution Contract
+## 📖 Documentation Structure
 
-All AI agents must follow:
+```
+README.md                     ← YOU ARE HERE (complete guide for humans)
+├── AGENTS.md                ← Technical contract (for AI agents, not humans)
+└── prompts/
+    ├── feature_request_format.md .... How to format your request
+    ├── [11 feature-specific specs]
+    │   ├── logic_hook.md ........... Logic hook specifications
+    │   ├── custom_field.md ......... Simple field specifications
+    │   ├── custom_field_type.md .... Complex field type specifications
+    │   ├── relationship.md ......... Relationship specifications
+    │   ├── rest_endpoint.md ........ REST endpoint specifications
+    │   ├── scheduler.md ............ Scheduler specifications
+    │   ├── ui_customization.md ..... UI customization specifications
+    │   ├── feature_generator.md .... Master generation prompt
+    │   ├── pack_php.md ............ Pack.php generation
+    │   └── external_resource_client.md  HTTP request handling
+└── reference/
+    ├── README.md ........................... Reference guide
+    ├── master_reference.md ................ Complete SugarCRM specs
+    └── sugar_developer_guide_25.2_md/ .... Official SugarCRM documentation
+```
 
-* `AGENTS.md` — authoritative rules
-* `/prompts/feature_request_format.md` — deterministic input schema
-* `/prompts/feature_generator.md` — generation instructions
+---
 
-**Rules enforced:**
+## ⚙️ For AI Agents (Not for Humans)
 
-* Extension Framework only (`custom/Extension/...`)
-* No core overrides
-* No OOTB module modification
-* Upgrade-safe only
-* No instructional/template noise in outputs
+**AI agents:** Read **[AGENTS.md](AGENTS.md)** for the binding execution contract.
+
+This document specifies:
+- Mandatory directory structure
+- Required file formats
+- Extension Framework compliance rules
+- pack.php specifications
+- Output format requirements
+- Quality assurance checklist
+
+---
+
+## 🔧 Key Points
 * No embedded Sugar Developer Guide content
 * Deterministic file output format
 
