@@ -99,97 +99,31 @@ sequenceDiagram
 
 ## 📚 Real-World Examples
 
-### Example 1: Adding a Logic Hook
+**Need templates to get started?** Check the `examples/` folder for copy/paste feature requests:
 
-**Your Request:**
-```
-Feature Type: Logic Hook
-Module: Accounts
-Trigger: after_save
-Condition:
-  field: account_type = 'Customer'
-Action:
-  type: webhook
-  method: POST
-  url: https://webhooks.com/webhook
-  payload: full bean
-Package Name: Acme_AccountsWebhook
-```
+- **[examples/01_logic_hook_webhook.md](examples/01_logic_hook_webhook.md)** — Send webhook when account is saved
+- **[examples/02_custom_field_varchar.md](examples/02_custom_field_varchar.md)** — Add custom text field
+- **[examples/03_relationship_many_to_many.md](examples/03_relationship_many_to_many.md)** — Link modules together
+- **[examples/04_rest_endpoint_api.md](examples/04_rest_endpoint_api.md)** — Create REST API endpoint
 
-**What to Do:**
-1. **Before prompting:** Read `prompts/logic_hook.md` to understand requirements
-2**Then:** Give the AI your feature request
-3**After:** AI generates `build/Acme_AccountsWebhook/` with all files
-4**Test:** `php build/Acme_AccountsWebhook/pack.php`
+### Two Ways to Request Features
 
-**Key Specifications:**
-- ✅ Logic hooks use Extension Framework (best practice)
-- ✅ Hooks go in `custom/Extension/modules/<Module>/Ext/LogicHooks/`
-- ✅ Hook implementation uses namespaced classes
-- ✅ Webhook uses ExternalResourceClient (never curl)
-
----
-
-### Example 2: Adding a Custom Field
-
-**Your Request:**
+**Option 1: Use the structured format from examples**
 ```
 Feature Type: Custom Field
 Module: Accounts
 Field Name: customer_priority
 Field Type: varchar
 Label: Customer Priority
-Length: 255
 Package Name: Acme_AccountsPriority
 ```
 
-**What to Do:**
-1. **Before prompting:** Read `prompts/custom_field.md`
-2. **Check:** Is it a simple field (varchar, int, bool, date) or complex (dropdown, encrypted)?
-3. **Then:** Give the AI your feature request
-4. **After:** AI generates `build/Acme_AccountsPriority/` with all needed files
-5. **Test and install**
+**Option 2: Describe in natural language**
+> "A custom varchar field named **customer_priority** is added to the Accounts module under the package **Test_AccountsCustomField**, labeled "Customer Priority," and designed as a highlight field that allows users to choose background and foreground colors in Studio."
 
-**Key Specifications:**
-- ✅ Field name MUST end with `_c` (becomes `customer_priority_c`)
-- ✅ Vardef properties set individually (NOT array merge)
-- ✅ MUST include `source: 'custom_fields'`
-- ✅ For dropdown/enum/multiselect → Use ModuleInstaller
+**Both work equally well!** Use whichever format feels more natural for your request.
 
----
-
-### Example 3: Adding a Custom Relationship
-
-**Your Request:**
-```
-Feature Type: Custom Relationship
-Relationship Name: accounts_projects
-Left Module: Accounts
-Right Module: Projects
-Type: many-to-many
-Package Name: Acme_AccountsProjects
-```
-
-**What to Do:**
-1. **Before prompting:** Read `prompts/relationship.md`
-2. **Understand:** one-to-many vs many-to-many differences
-3. **Then:** Give the AI your feature request
-4. **After:** AI generates metadata and TableDictionary files
-5. **Test and install**
-
----
-
-### Example 4: Adding a REST Endpoint
-
-**Your Request:**
-```
-Feature Type: REST Endpoint
-Module: Contacts
-Endpoint: /custom/contacts/summary
-Method: GET
-Action: return summary of contact activity
-Package Name: Acme_ContactsSummaryAPI
-```
+**Want to contribute your own?** See `examples/README.md` to add examples for other feature types!
 
 ---
 
