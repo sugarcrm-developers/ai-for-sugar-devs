@@ -119,8 +119,3 @@ Create an example following the same structure as the ones in this folder and co
 - **What are the core specs?** → See `prompts/<feature_type>.md`
 - **How do agents work?** → See `AGENTS.md`
 - **How do I install packages?** → See `README.md`
-
----
-
-**Last Updated:** February 24, 2026
-

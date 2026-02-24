@@ -285,7 +285,3 @@ This file is **the binding execution contract** for any AI agent generating Suga
 **All outputs MUST be atomic, deterministic, and self-contained per package.**
 
 **Deviations from this contract are violations of the specification.**
-
----
-
-Last Updated: February 23, 2026
