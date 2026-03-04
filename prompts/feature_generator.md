@@ -13,9 +13,13 @@ You are an AI agent generating installable, upgrade-safe SugarCRM Module Loadabl
 ## HTTP Requests and ExternalResourceClient
 **CRITICAL**: All HTTP requests in generated PHP code MUST use SugarCRM's `ExternalResourceClient`.
 - **Instantiation**: Use `new ExternalResourceClient()` (constructor injection or inline creation).
+- **Imports**: Import 
 - **NEVER** call `ExternalResourceClient::getInstance()` — this method does NOT exist.
 - **Reference**: https://support.sugarcrm.com/documentation/sugar_developer/sugar_developer_guide_14.0/integration/externalresourceclient/
 - **Never use**: curl, file_get_contents, fopen, stream_get_contents, or any other direct HTTP methods.
+- **Fully qualified namespace**: `Sugarcrm\Sugarcrm\Security\HttpClient\ExternalResourceClient`
+Always include the import statement at the top of the class file:
+use Sugarcrm\Sugarcrm\Security\HttpClient\ExternalResourceClient;
 
 ## Code Quality Standards
 - Avoid dynamic properties; use typed properties with **return types** on all methods.

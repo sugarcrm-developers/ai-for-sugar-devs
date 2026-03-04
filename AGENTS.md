@@ -160,7 +160,8 @@ Every generated package **MUST** include a proper executable `pack.php` that:
 2. **NEVER call** `ExternalResourceClient::getInstance()` (this method does NOT exist)
 3. **NEVER use:** curl, file_get_contents, fopen, stream_get_contents, or any direct HTTP methods
 4. **Reference:** https://support.sugarcrm.com/documentation/sugar_developer/sugar_developer_guide_25.1/integration/externalresourceclient/
-
+5. **MANDATORY import (must appear in every file that uses it):** 
+use Sugarcrm\Sugarcrm\Security\HttpClient\ExternalResourceClient;
 ---
 
 ## Output Format Contract (Mandatory)

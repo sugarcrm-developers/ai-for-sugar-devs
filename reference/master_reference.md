@@ -388,6 +388,8 @@ $installdefs = array(
 ## HTTP Requests (ExternalResourceClient)
 
 **REFERENCE**: https://support.sugarcrm.com/documentation/sugar_developer/sugar_developer_guide_25.1/integration/externalresourceclient/
+**MANDATORY import (must appear in every file that uses it):**
+use Sugarcrm\Sugarcrm\Security\HttpClient\ExternalResourceClient;
 
 ### CRITICAL: Never Use Curl Directly
 
@@ -406,6 +408,7 @@ if ($response->getStatusCode() === 200) {
     $body = $response->getBody()->getContents();
 }
 ```
+
 
 ❌ **NEVER USE:**
 - `curl_init()`, `curl_exec()`, etc.

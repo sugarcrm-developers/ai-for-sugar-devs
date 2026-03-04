@@ -25,7 +25,7 @@ For plugin distribution, use Extension Framework with namespaced classes. This i
    - Hook must reference namespaced class or non-namespaced file
 
 2. **Hook Implementation Class** (`custom/modules/<Module>/<ClassName>.php` OR namespace-based path)
-   - If namespaced: Create at path matching namespace (e.g., `Sugarcrm\Sugarcrm\custom\modules\Accounts\CustomHook` → `custom/modules/Accounts/CustomHook.php`)
+   - If namespaced: Create at path matching namespace (e.g., `\Sugarcrm\Sugarcrm\custom\modules\Accounts\LogicHooks\CustomHook` → `custom/modules/Accounts/LogicHooks/CustomHook.php`)
    - Implement method with signature: `function <methodName>($bean, $event, $arguments)`
    - Different hook types have different available arguments
 
@@ -70,7 +70,7 @@ $hook_array['<event_type>'][] = array(
     <priority>,  // Integer: 0-999, lower executes first
     '<description>',  // String: human-readable description
     null,  // Null for namespaced classes
-    '<namespace\\ClassName>',  // String: fully qualified class name
+    '\\<namespace\\ClassName>',  // String: fully qualified class name
     '<methodName>',  // String: method name to call
 );
 ```
