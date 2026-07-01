@@ -12,6 +12,29 @@ A production-grade, AI-driven system for generating installable, upgrade-safe Su
 
 ---
 
+## Recent Mandates (v2)
+
+The following rules were captured from real MLP work and apply to every generated package. They take precedence over older guidance in this document if there is ever a conflict.
+
+1. **`_c` suffix on custom field names is mandatory** — Sugar core convention. ALL fields added to OOB modules must end in `_c`. Studio rejects fields without it.
+2. **Use `vname` not `label` in vardefs** — Studio resolves the display label via `vname` → `LBL_*` lookup; `label` is for older Bean/MB-internal use and will be ignored on Sidecar metadata.
+3. **NO `'help'` text on vardefs** — labels carry the help via `LBL_*` entries; adding `'help'` keys creates inconsistency between MB and Studio.
+4. **`image_dir` belongs in `installdefs`, NOT `$manifest`** — Sugar's `ModuleInstaller.php:1120` only reads `image_dir` from `installdefs`. Placing it in `$manifest` silently does nothing → "No Image" placeholder forever.
+5. **Singular/plural (Escalation pattern)** — Module folder name and DB table name are PLURAL (`Escalations`, `escalations`); bean class name, `object_name`, and `$dictionary` key are SINGULAR (`Escalation`). Mismatch breaks bean lookup.
+6. **Relationships: lhs = parent, rhs = child** — `lhs_module` is the target of the relate (e.g., Accounts); `rhs_module` is the side with the link/relate/id triplet (e.g., Contacts). `id_name` = `<rel><lhs_lower>_ida`.
+7. **M:M-with-join-table even for declared 1:M (MB convention)** — Module Builder generates a join table for every relationship, even ones declared 1:M. The only exception is Notes 1:M.
+8. **Notes 1:M: parent_id/parent_type with `relationship_role_column`** — Notes attach via `parent_type` discriminator + `parent_id` FK, NOT a join table. Set `relationship_role_column => 'parent_type'`.
+9. **`$app_list_strings` for module list + dropdowns is application-scope** — Place `moduleList`, `moduleListSingular`, `moduleIconList`, and any enum dropdowns in `SugarModules/language/application/<lang>.lang.php` registered with `to_module => 'application'`. Module-scope language files won't surface them.
+10. **Sidecar subpanel layouts** (`clients/base/layouts/subpanels/...`) must be registered in `installdefs['sidecar']` — not `copy` — for them to be picked up.
+11. **`basic` template auto-adds primary + standard indices** — When `uses => ['basic']` is in vardefs, do NOT redeclare `id` primary index or standard auditing indices; that causes duplicate-key errors at install.
+12. **`is_sync_key=true` auto-adds a unique index** — Don't redeclare it; install will fail with duplicate index name.
+13. **Sidecar viewdefs use explicit numeric array keys** — Editing requires careful renumbering; use a paren-balanced parser, not non-greedy regex. See `[[sugar-viewdef-editing]]`.
+14. **Address grouping** — to visually group address sub-fields like Quotes, set `'group' => '<address_prefix>'` AND `'group_label' => 'LBL_<...>'` on each vardef AND wrap them in a `'type' => 'fieldset'` block in the record view. Vardef grouping alone is not enough.
+15. **Drop doubled prefix when MB doubles it** — Module Builder sometimes prepends the package short name twice (`acme_acme_<module>`). Strip one prefix before packaging or names won't match the Studio expectations.
+16. **OOB modules: new fields don't auto-appear on Sidecar record views** — After installing a new custom field on an OOB module, an admin must drag the field onto the record view via Studio. Note this in every skill summary that targets an OOB module.
+
+---
+
 ## Atomic, Autonomous, and Deterministic Generation (Mandatory)
 
 - **All package generation must be atomic, self-contained, and require no user review or stepwise confirmation.**
