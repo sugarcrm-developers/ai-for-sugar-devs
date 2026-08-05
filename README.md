@@ -95,7 +95,8 @@ sequenceDiagram
 ├── README.md                 ← human entry point (you are here)
 ├── CLAUDE.md                 ← entry point for Claude Code (skill routing)
 ├── AGENTS.md                 ← binding execution contract (v2 mandates)
-├── skills/                   ← 19 SKILL.md files
+├── .claude/skills/            ← copy of skills/ for Claude Code's auto-discovery (keep in sync)
+├── skills/                   ← 19 SKILL.md files (canonical source)
 │   ├── sugar-logic-hook/
 │   ├── sugar-custom-field/
 │   ├── sugar-custom-field-type/
