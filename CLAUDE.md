@@ -4,7 +4,13 @@ This repository is a **Sugar developer skills library** for generating installab
 
 ## Available skills
 
-All skills live under [`skills/`](skills/). Each skill is a `SKILL.md` file with YAML frontmatter (`name`, `description`, `when_to_use`, `not_for`, `related_skills`) plus a body containing examples, rules, gotchas, and cross-references.
+All skills live under [`skills/`](skills/) — the canonical, tool-agnostic source. Each skill is a `SKILL.md` file with YAML frontmatter (`name`, `description`, `when_to_use`, `not_for`, `related_skills`) plus a body containing examples, rules, gotchas, and cross-references.
+
+[`.claude/skills/`](.claude/skills/) is a **copy** of the same files, kept only so Claude Code's own skill auto-discovery (which scans `.claude/skills/<name>/SKILL.md`, not a repo-root `skills/`) picks them up automatically. `skills/` stays the single source of truth for humans and every other agent — when you edit a skill, copy the change into both locations, or run:
+
+```bash
+cp -R skills/. .claude/skills/
+```
 
 Claude Code can:
 - Invoke a skill via the Skill tool when frontmatter matches developer intent

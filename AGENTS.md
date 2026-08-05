@@ -69,7 +69,7 @@ Package Name: <MLP Name>               # Unique package identifier
 
 1. **Parse feature request** using format specified above
 2. **Consult relevant prompt file** from `/prompts/<feature_type>.md`
-3. **Consult `/reference/MASTER_REFERENCE.md`** for SugarCRM extension framework specifications
+3. **Consult `/reference/master_reference.md`** for SugarCRM extension framework specifications
 4. **Generate complete package** in `/build/<PackageName>/` with all required files
 5. **Output raw file entry list** per Output Format Contract (do not output explanations or markdown)
 
@@ -119,7 +119,7 @@ All packages must follow this structure:
 1. **Logic hook registration must be placed in:** `custom/Extension/modules/<Module>/Ext/LogicHooks/<filename>.php`
 2. **It is FORBIDDEN to register hooks directly in `logic_hooks.php`** (including `custom/modules/<Module>/logic_hooks.php` for distributed packages)
 3. **Hook definition must reference a class and method** (namespaced or non-namespaced per `/prompts/logic_hook.md`)
-4. **Consult `/reference/MASTER_REFERENCE.md` for all 12 hook types and signatures**
+4. **Consult `/reference/master_reference.md` for all 12 hook types and signatures**
 
 ---
 
@@ -222,7 +222,7 @@ File: build/MyPackage/src/custom/Extension/modules/Accounts/Ext/LogicHooks/...
 | `/prompts/custom_field.md` | Custom field vardef specs | Custom field packages |
 | `/prompts/custom_field_type.md` | Custom field type specs | Field type packages |
 | `/prompts/relationship.md` | Relationship specs | Relationship packages |
-| `/reference/MASTER_REFERENCE.md` | Complete SugarCRM specs | All packages (validation) |
+| `/reference/master_reference.md` | Complete SugarCRM specs | All packages (validation) |
 | `/reference/sugar_developer_guide_25.2_md/` | Official SugarCRM docs | Specification references |
 | `/prompts/feature_request_format.md` | Input format | Input parsing |
 | `/prompts/feature_generator.md` | Master generation prompt | All packages |
